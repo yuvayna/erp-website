@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>aynawithme</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Vidéo de fond -->
+  <video autoplay muted loop id="video-background">
+    <source src="videoback.mp4" type="video/mp4">
+  </video>
+
+  <!-- HEADER AVEC IMAGES OwO WHATS THIS -->
+  <main>
+    <div class="top-banner" data-aos="fade-down">
+      <img src="image01.png" alt="" />
+    </div>
+    <div class="owo-image-row">
+      <img src="pic1.png" alt="owo" class="owo-img"/>
+      <img src="pic2.png" alt="whats" class="whats-img"/>
+      <img src="pic3.png" alt="this" class="this-img"/>
+    </div>
+
+
+    <form class="form" action="submitted.html" method="GET" data-aos="fade-up" data-aos-delay="900">
+      <input type="text" name="name" placeholder="VR CHAT NAME OR ID" required />
+      <input type="text" name="looking_for" placeholder="LOOKING FOR" required />
+      <input type="text" name="about_you" placeholder="SOMETHING ABOUT YOU" required />
+
+      <label class="checkbox-label">
+        <input type="checkbox" name="traps_not_gay" required />
+        TRAPS ARE NOT GAY
+      </label>
+
+      <button type="submit">SUBMIT</button>
+    </form>
+
+    <div class="image-container" data-aos="zoom-in" data-aos-delay="1000">
+      <img src="https://cdn.discordapp.com/attachments/1066507921221818398/1145970102282149938/girl_idle.gif" alt="" />
+    </div>
+  </main>
+  <script>AOS.init();</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const imgs = document.querySelectorAll('.owo-container img');
+    imgs.forEach((img, index) => {
+      setTimeout(() => {
+        img.classList.add('fade-in');
+      }, index * 400);
+    });
+  });
+</script>
+
+
+<script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const name = document.querySelector('[name="name"]').value;
+  const looking = document.querySelector('[name="looking_for"]').value;
+  const about = document.querySelector('[name="about_you"]').value;
+  const trap = document.querySelector('[name="traps_not_gay"]').checked ? "✔️" : "❌";
+
+  const payload = {
+    content: `📨 NOUVELLE FICHE ERP :\n🧑 VR Chat Name or ID: ${name}\n🎯 Looking for: ${looking}\n🗣 Something about you: ${about}\n✅ Traps are not gay: ${trap}`
+  };
+
+  try {
+    await fetch("https://discord.com/api/webhooks/1402546461518073857/i6UicOeDFVSLvBAz5Ba5vhMm2Bgfl1oXmGWTAidqDVgpD6UBzlNaD2P9STT_NIVysXRr", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error("Erreur lors de l'envoi au webhook:", err);
+  }
+
+  window.location.href = "submitted.html";
+});
+</script>
+
+</body>
+</html>
